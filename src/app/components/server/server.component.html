@@ -1,0 +1,61 @@
+
+
+
+<ul class="list-group">
+    <li 
+        class="list-group-item"
+        *ngFor="let server of servers_list"
+    >
+    <div>
+        <button 
+            type="button" 
+            class="close" 
+            data-dismiss="alert" 
+            aria-label="Close"
+            (click)="onDeleteServer(server)"
+            >
+            <span aria-hidden="true">&times;</span>
+        </button> 
+
+        {{ server.name }}
+
+        <div class="progress">
+            <div 
+                class="progress-bar progress-bar-{{ server.progressClass() }}" 
+                role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{ server.inUse * 100 }}%;">
+                {{ server.inUse | percent }}
+            </div>
+        </div>
+    </div>    
+    </li>
+</ul>
+
+
+
+<input 
+    type="text"
+    class="form-control"
+    [(ngModel)]="servername"
+>
+
+<button 
+class="btn btn-primary"
+[disabled]="!allowAddingServer || servername === ''"
+(click)="onUpdateServerName()"> 
+add server {{ servername }}
+</button>   
+
+<button 
+    type="button" 
+    class="btn btn-default"
+    (click)="onSortServersAsc()"
+>sort asc</button>
+
+<button 
+    type="button" 
+    class="btn btn-default"
+    (click)="onSortServersDesc()"
+>sort desc</button>
+
+
+<p>{{ message }}</p>
