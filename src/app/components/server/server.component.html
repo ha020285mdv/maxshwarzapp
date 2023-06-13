@@ -1,6 +1,3 @@
-
-
-
 <ul class="list-group">
     <li 
         class="list-group-item"
@@ -21,8 +18,12 @@
 
         <div class="progress">
             <div 
-                class="progress-bar progress-bar-{{ server.progressClass() }}" 
-                role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{ server.inUse * 100 }}%;">
+                class="progress-bar" 
+                [ngClass]="'progress-bar-' + getServerStatus(server.inUse)"
+                role="progressbar" 
+                aria-valuemin="0" 
+                aria-valuemax="100" 
+                [ngStyle]="{width: getServerLoading(server.inUse)}">
                 {{ server.inUse | percent }}
             </div>
         </div>
@@ -30,19 +31,20 @@
     </li>
 </ul>
 
-
+<p *ngIf="servers_list.length == 0">{{ serverCreationStatus }}</p>
 
 <input 
     type="text"
     class="form-control"
+    style='width:15em'
     [(ngModel)]="servername"
 >
 
 <button 
-class="btn btn-primary"
-[disabled]="!allowAddingServer || servername === ''"
-(click)="onUpdateServerName()"> 
-add server {{ servername }}
+    class="btn btn-primary"
+    [disabled]="!allowAddingServer || servername === ''"
+    (click)="onUpdateServerName()"> 
+    add server {{ servername }}
 </button>   
 
 <button 

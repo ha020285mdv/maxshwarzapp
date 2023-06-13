@@ -21,12 +21,14 @@ export class ServerComponent {
   serverCreationStatus: string = 'No server was created';
   servername: string = '';
   message: string = '';
+   
 
   constructor() {
     this.createServerComponent("Apple");
     this.createServerComponent("AWS");
     this.createServerComponent("IBM");
     this.createServerComponent("Samsung");
+    this.onSortServersDesc();
   }
 
   createServerComponent(serverName: string) {
@@ -45,7 +47,6 @@ export class ServerComponent {
           {return "warning"}
         else 
           {return "danger"}
-       
       },
     })
   }
@@ -84,6 +85,21 @@ export class ServerComponent {
 
   onSortServersDesc() {
     this.servers_list.sort((a, b) => (a.inUse > b.inUse ? -1 : 1));
+  }
+
+  getServerLoading(using: number): string {
+    return `${using * 100}%`
+  }
+
+  getServerStatus(using: number): string {
+    if (using < 0.25) 
+        {return "info"}
+      else if (using < 0.65) 
+        {return "success"}
+      else if (using < 0.90) 
+        {return "warning"}
+      else 
+        {return "danger"}
   }
 
 
