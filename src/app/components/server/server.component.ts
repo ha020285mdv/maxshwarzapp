@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
 interface IServer {
   name: string | null;
   inUse: number;
-  withHtml(): string;
-  progressClass(): string;
 }
 
 
@@ -34,21 +32,10 @@ export class ServerComponent {
   createServerComponent(serverName: string) {
     this.servers_list.push({
       name: serverName,
-      inUse: Math.random(),
-      withHtml(): string {
-        return `style="width: ${this.inUse * 100}%"`
-      },
-      progressClass(): string {
-        if (this.inUse < 0.25) 
-          {return "info"}
-        else if (this.inUse < 0.65) 
-          {return "success"}
-        else if (this.inUse < 0.90) 
-          {return "warning"}
-        else 
-          {return "danger"}
-      },
+      inUse: Math.random()
     })
+    setTimeout(() => {this.onSortServersDesc()}, 1000)
+    //this.onSortServersDesc();
   }
 
   enableAddServer(interval: number) {
