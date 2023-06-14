@@ -7,7 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   //to send messages parent > child:
-  msg: {type: string, text: string} = {type: 'warning', text: 'Servers are overloaded'} 
-
-
+  msg: {type: string, text: string} = {type: 'warning', text: 'Server is overloaded'} 
 }
