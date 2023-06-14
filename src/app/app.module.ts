@@ -5,8 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServerComponent } from './components/server/server.component';
 import { ServersComponent } from './components/servers/servers.component';
-import { WarningComponent } from './components/assets/warning/warning.component';
-import { SuccessComponent } from './components/assets/success/success.component';
+import { MessageComponent } from './components/message/message.component';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -14,8 +13,7 @@ import { FormsModule } from '@angular/forms';
     AppComponent,
     ServerComponent,
     ServersComponent,
-    WarningComponent,
-    SuccessComponent
+    MessageComponent
   ],
   imports: [
     BrowserModule,

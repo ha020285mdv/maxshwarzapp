@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'maxshwarzapp';
+  //to send messages from parent to child:
+  msg: {type: string, text: string} = {type: 'warning', text: 'Servers are overloaded'} 
+
+
 }

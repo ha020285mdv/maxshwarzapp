@@ -1,0 +1,7 @@
+<div 
+    *ngIf="message != undefined"
+    class="alert"
+    [ngClass]="getClass(message.type)" 
+    role="alert"> 
+    {{ message.text }} 
+</div>
