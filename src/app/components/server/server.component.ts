@@ -19,14 +19,15 @@ export class ServerComponent {
   serverCreationStatus: string = 'No server was created';
   servername: string = '';
   message: string = '';
-   
+  sortedDesc: boolean = false;
+  
 
   constructor() {
     this.createServerComponent("Apple");
     this.createServerComponent("AWS");
     this.createServerComponent("IBM");
     this.createServerComponent("Samsung");
-    this.onSortServersDesc();
+    setTimeout(() => {this.onSortServers()}, 1000);
   }
 
   createServerComponent(serverName: string) {
@@ -34,8 +35,6 @@ export class ServerComponent {
       name: serverName,
       inUse: Math.random()
     })
-    setTimeout(() => {this.onSortServersDesc()}, 1000)
-    //this.onSortServersDesc();
   }
 
   enableAddServer(interval: number) {
@@ -50,6 +49,8 @@ export class ServerComponent {
       ) == undefined
       ) {
         this.createServerComponent(this.servername);
+        this.sortedDesc = false;
+        setTimeout(() => {this.onSortServers()}, 1000);
         this.servername = '';
         this.allowAddingServer = false;
         this.enableAddServer(2000);
@@ -66,12 +67,17 @@ export class ServerComponent {
     });
   }
 
-  onSortServersAsc() {
-    this.servers_list.sort((a, b) => (a.inUse < b.inUse ? -1 : 1));
-  }
-
-  onSortServersDesc() {
-    this.servers_list.sort((a, b) => (a.inUse > b.inUse ? -1 : 1));
+  onSortServers() {
+    if (this.sortedDesc)
+    {
+      this.servers_list.sort((a, b) => (a.inUse < b.inUse ? -1 : 1));
+      this.sortedDesc = false
+    }
+    else
+    {
+      this.servers_list.sort((a, b) => (a.inUse > b.inUse ? -1 : 1));
+      this.sortedDesc = true
+    }
   }
 
   getServerLoading(using: number): string {
@@ -88,7 +94,6 @@ export class ServerComponent {
       else 
         {return "danger"}
   }
-
 
 }
 

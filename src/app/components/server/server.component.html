@@ -50,14 +50,7 @@
 <button 
     type="button" 
     class="btn btn-default"
-    (click)="onSortServersAsc()"
->sort asc</button>
-
-<button 
-    type="button" 
-    class="btn btn-default"
-    (click)="onSortServersDesc()"
->sort desc</button>
-
+    (click)="onSortServers()"
+><span class="glyphicon glyphicon-sort-by-attributes{{ sortedDesc ? '' : '-alt' }}"></span></button>
 
 <p>{{ message }}</p>
