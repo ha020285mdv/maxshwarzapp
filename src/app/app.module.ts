@@ -7,13 +7,15 @@ import { ServerComponent } from './components/server/server.component';
 import { ServersComponent } from './components/servers/servers.component';
 import { MessageComponent } from './components/message/message.component';
 import { FormsModule } from '@angular/forms';
+import { MsgDirective } from './directives/msg.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     ServerComponent,
     ServersComponent,
-    MessageComponent
+    MessageComponent,
+    MsgDirective
   ],
   imports: [
     BrowserModule,
