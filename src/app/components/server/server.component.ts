@@ -28,6 +28,7 @@ export class ServerComponent {
     this.createServerComponent("IBM");
     this.createServerComponent("Samsung");
     setTimeout(() => {this.onSortServers()}, 1000);
+    console.log(`List of servers has been created`)
   }
 
   createServerComponent(serverName: string) {
@@ -35,6 +36,7 @@ export class ServerComponent {
       name: serverName,
       inUse: Math.random()
     })
+    console.log(`Server ${serverName} has been created`)
   }
 
   enableAddServer(interval: number) {
@@ -56,14 +58,18 @@ export class ServerComponent {
         this.enableAddServer(2000);
     }
     else {
-      this.message = 'Server already exists'
+      this.message = 'Server already exists';
+      console.log(`Denied to create server ${this.servername}: already exists`);
     }
 
   }
 
   onDeleteServer(server: IServer) {
     this.servers_list.forEach((value,index)=>{
-      if(value.name==server.name) this.servers_list.splice(index,1);
+      if(value.name==server.name) {
+        this.servers_list.splice(index,1);
+        console.log(`Server ${server.name} has been delited`)
+      };
     });
   }
 
