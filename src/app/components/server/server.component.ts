@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoggingService } from 'src/app/services/logging.service';
 
 
 interface IServer {
@@ -10,7 +11,8 @@ interface IServer {
 @Component({
   selector: 'app-server',
   templateUrl: './server.component.html',
-  styleUrls: ['./server.component.css']
+  styleUrls: ['./server.component.css'],
+  providers: [LoggingService]
 })
 export class ServerComponent {
 
@@ -22,13 +24,13 @@ export class ServerComponent {
   sortedDesc: boolean = false;
   
 
-  constructor() {
+  constructor(private log: LoggingService) {
     this.createServerComponent("Apple");
     this.createServerComponent("AWS");
     this.createServerComponent("IBM");
     this.createServerComponent("Samsung");
     setTimeout(() => {this.onSortServers()}, 1000);
-    console.log(`List of servers has been created`)
+    this.log.logStatusChange(`List of servers has been created`)
   }
 
   createServerComponent(serverName: string) {
@@ -36,7 +38,7 @@ export class ServerComponent {
       name: serverName,
       inUse: Math.random()
     })
-    console.log(`Server ${serverName} has been created`)
+    this.log.logStatusChange(`Server ${serverName} has been created`)
   }
 
   enableAddServer(interval: number) {
@@ -59,7 +61,7 @@ export class ServerComponent {
     }
     else {
       this.message = 'Server already exists';
-      console.log(`Denied to create server ${this.servername}: already exists`);
+      this.log.logStatusChange(`Denied to create server ${this.servername}: already exists`);
     }
 
   }
@@ -68,7 +70,7 @@ export class ServerComponent {
     this.servers_list.forEach((value,index)=>{
       if(value.name==server.name) {
         this.servers_list.splice(index,1);
-        console.log(`Server ${server.name} has been delited`)
+        this.log.logStatusChange(`Server ${server.name} has been deleted`)
       };
     });
   }
