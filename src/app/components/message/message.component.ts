@@ -1,9 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { ThisReceiver } from '@angular/compiler';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { MessageService } from 'src/app/services/message.service';
 
 @Component({
   selector: 'app-message',
   templateUrl: './message.component.html',
-  styleUrls: ['./message.component.css']
+  styleUrls: ['./message.component.css'],
 })
 export class MessageComponent {
 
@@ -11,8 +13,17 @@ export class MessageComponent {
 
   types: string[] = ['success', 'info', 'warning', 'danger'];
 
-  constructor() {}
-
+  constructor(
+    private msg: MessageService,
+    private readonly changeDetector: ChangeDetectorRef
+    ) {
+      this.msg.newMessage.subscribe(
+          (msg: { type: string, text: string }) =>  {
+            this.message = msg
+          }
+      );
+  }
+  
   getClass(type: string) {
     return (this.types.includes(type)) ? 'alert-' + type : 'alert-info'
   }

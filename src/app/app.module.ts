@@ -9,6 +9,7 @@ import { MessageComponent } from './components/message/message.component';
 import { FormsModule } from '@angular/forms';
 import { MsgDirective } from './directives/msg.directive';
 import { LoggingService } from './services/logging.service';
+import { MessageService } from './services/message.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { LoggingService } from './services/logging.service';
     AppRoutingModule,
     FormsModule,
   ],
-  providers: [LoggingService],
+  providers: [LoggingService, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

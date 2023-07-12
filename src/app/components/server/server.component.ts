@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { LoggingService } from 'src/app/services/logging.service';
+import { MessageService } from 'src/app/services/message.service';
 
 
 interface IServer {
@@ -23,13 +24,19 @@ export class ServerComponent {
   sortedDesc: boolean = false;
   
 
-  constructor(private log: LoggingService) {
-    this.createServerComponent("Apple");
-    this.createServerComponent("AWS");
-    this.createServerComponent("IBM");
-    this.createServerComponent("Samsung");
-    setTimeout(() => {this.onSortServers()}, 1000);
-    this.log.logStatusChange(`List of servers has been created`)
+  constructor(
+    private log: LoggingService,
+    private msg: MessageService
+  ) 
+    {
+      this.createServerComponent("Apple");
+      this.createServerComponent("AWS");
+      this.createServerComponent("IBM");
+      this.createServerComponent("Samsung");
+      setTimeout(() => {this.onSortServers()}, 1000);
+      this.message = `List of servers has been created`;
+      this.log.logStatusChange(this.message);
+      this.msg.newMessage.emit({ type: 'success', text: this.message });
   }
 
   createServerComponent(serverName: string) {
@@ -37,7 +44,9 @@ export class ServerComponent {
       name: serverName,
       inUse: Math.random()
     })
-    this.log.logStatusChange(`Server ${serverName} has been created`)
+    this.message = `Server ${serverName} has been created`;
+    this.log.logStatusChange(this.message);
+    this.msg.newMessage.emit({ type: 'success', text: this.message });
   }
 
   enableAddServer(interval: number) {
@@ -59,8 +68,9 @@ export class ServerComponent {
         this.enableAddServer(2000);
     }
     else {
-      this.message = 'Server already exists';
-      this.log.logStatusChange(`Denied to create server ${this.servername}: already exists`);
+      this.message = `Denied to create server ${this.servername}: already exists`;
+      this.log.logStatusChange(this.message);
+      this.msg.newMessage.emit({ type: 'warning', text: this.message });
     }
 
   }
@@ -69,7 +79,9 @@ export class ServerComponent {
     this.servers_list.forEach((value,index)=>{
       if(value.name==server.name) {
         this.servers_list.splice(index,1);
-        this.log.logStatusChange(`Server ${server.name} has been deleted`)
+        this.message = `Server ${server.name} has been deleted`;
+        this.log.logStatusChange(this.message);
+        this.msg.newMessage.emit({ type: 'danger', text: this.message });
       };
     });
   }
